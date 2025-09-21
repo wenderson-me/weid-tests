@@ -24,8 +24,8 @@ describe("Login Functionality", () => {
   it("should show validation errors for empty form submission", () => {
     cy.get('button[type="submit"]').click();
 
-    cy.contains("Email is required").should("be.visible");
-    cy.contains("Password is required").should("be.visible");
+    cy.contains("Please enter your email address").should("be.visible");
+    cy.contains("Please enter your password").should("be.visible");
 
     cy.url().should("include", "/login");
   });
@@ -36,22 +36,31 @@ describe("Login Functionality", () => {
 
     cy.get('button[type="submit"]').click();
 
-    cy.contains("Invalid email address").should("be.visible");
+    cy.contains("Please enter a valid email address").should("be.visible");
 
     cy.url().should("include", "/login");
   });
 
-  it.skip("should show error message for invalid credentials", () => {
-    cy.getTestUsers().then((users) => {
-      cy.get('input[name="email"]').type(users.invalidUser.email);
-      cy.get('input[name="password"]').type(users.invalidUser.password);
+  it("should show error message for password without special characters", () => {
+    cy.get('input[name="email"]').type("test@example.com");
+    cy.get('input[name="password"]').type("Password123");
 
-      cy.get('button[type="submit"]').click();
+    cy.get('button[type="submit"]').click();
 
-      cy.contains("Login failed").should("be.visible");
+    cy.contains("Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character").should("be.visible");
 
-      cy.url().should("include", "/login");
-    });
+    cy.url().should("include", "/login");
+  });
+
+  it("should show error message for short password", () => {
+    cy.get('input[name="email"]').type("test@example.com");
+    cy.get('input[name="password"]').type("Pw1!");
+
+    cy.get('button[type="submit"]').click();
+
+    cy.contains("Password must be at least 8 characters").should("be.visible");
+
+    cy.url().should("include", "/login");
   });
 
   it("should toggle password visibility", () => {
