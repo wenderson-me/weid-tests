@@ -2,6 +2,22 @@
 
 Este diretório contém testes end-to-end (E2E) usando Cypress para testar a aplicação Weid.
 
+### Clonando os projetos necessários
+
+Para executar os testes, é necessário clonar os repositórios do backend e frontend:
+
+- Backend: https://github.com/wenderson-me/weid-backend
+- Frontend: https://github.com/wenderson-me/weid-frontend
+
+Execute os comandos abaixo em seu terminal:
+
+```bash
+git clone https://github.com/wenderson-me/weid-backend.git
+git clone https://github.com/wenderson-me/weid-frontend.git
+```
+
+Certifique-se de seguir as instruções de instalação e execução presentes nos READMEs de cada projeto antes de rodar os testes.
+
 ### Estrutura de Diretórios
 
 ```
