@@ -1,0 +1,49 @@
+{
+  "baseUrl": "http://localhost:5000/api/v1",
+  "users": [
+    {
+      "email": "test1@example.com",
+      "password": "Test@1234"
+    },
+    {
+      "email": "test2@example.com",
+      "password": "Test@1234"
+    },
+    {
+      "email": "test3@example.com",
+      "password": "Test@1234"
+    }
+  ],
+  "thresholds": {
+    "http_req_duration": ["p(95)<500"]
+  },
+  "scenarios": {
+    "low_load": {
+      "executor": "constant-vus",
+      "vus": 5,
+      "duration": "30s"
+    },
+    "medium_load": {
+      "executor": "constant-vus",
+      "vus": 20,
+      "duration": "30s"
+    },
+    "high_load": {
+      "executor": "ramping-vus",
+      "startVUs": 5,
+      "stages": [
+        { "duration": "10s", "target": 20 },
+        { "duration": "30s", "target": 50 },
+        { "duration": "10s", "target": 0 }
+      ]
+    }
+  },
+  "authScenarios": {
+    "different_ips": {
+      "executor": "per-vu-iterations",
+      "vus": 10,
+      "iterations": 10,
+      "maxDuration": "2m"
+    }
+  }
+}

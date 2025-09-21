@@ -1,0 +1,37 @@
+{
+  "validUser": {
+    "email": "test@example.com",
+    "password": "Test@1234",
+    "name": "Test User"
+  },
+  "invalidUser": {
+    "email": "invalid@example.com",
+    "password": "wrongpassword"
+  },
+  "newUser": {
+    "name": "New Test User",
+    "email": "newuser@example.com",
+    "password": "Test@1234",
+    "confirmPassword": "Test@1234"
+  },
+  "invalidRegistrations": {
+    "weakPassword": {
+      "name": "Weak Password User",
+      "email": "weakpass@example.com",
+      "password": "weak",
+      "confirmPassword": "weak"
+    },
+    "mismatchedPasswords": {
+      "name": "Mismatched Passwords",
+      "email": "mismatch@example.com",
+      "password": "Test@1234",
+      "confirmPassword": "Test@5678"
+    },
+    "invalidEmail": {
+      "name": "Invalid Email",
+      "email": "notanemail",
+      "password": "Test@1234",
+      "confirmPassword": "Test@1234"
+    }
+  }
+}

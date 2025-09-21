@@ -1,0 +1,19 @@
+{
+  "name": "weid-tests",
+  "version": "1.0.0",
+  "description": "Tests for Weid application",
+  "scripts": {
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "test": "cypress run",
+    "test:login": "cypress run --spec 'cypress/e2e/auth/login.cy.js'",
+    "test:register": "cypress run --spec 'cypress/e2e/auth/register.cy.js'",
+    "test:performance": "k6 run performance/scripts/api-endpoints-test.js",
+    "test:auth": "k6 run performance/scripts/auth-test.js",
+    "test:endurance": "k6 run performance/scripts/endurance-test.js"
+  },
+  "devDependencies": {
+    "cypress": "^13.6.0",
+    "cypress-localstorage-commands": "^2.2.5"
+  }
+}
