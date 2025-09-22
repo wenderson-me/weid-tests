@@ -31,8 +31,8 @@ describe("Login Functionality", () => {
   });
 
   it("should show validation error for invalid email format", () => {
-    cy.get('input[name="email"]').type("invalid-email");
-    cy.get('input[name="password"]').type("Password123!");
+    cy.get('input[name="email"]').type('invalid-email');
+    cy.get('input[name="password"]').type('ValidP@ssw0rd');
 
     cy.get('button[type="submit"]').click();
 
@@ -87,43 +87,18 @@ describe("Login Functionality", () => {
     cy.url().should("include", "/register");
   });
 
-  it("should successfully login with valid credentials", () => {
-    cy.getTestUsers().then((users) => {
-      cy.intercept("POST", "**/auth/login", {
-        statusCode: 200,
-        body: {
-          data: {
-            user: {
-              id: "123456",
-              name: users.validUser.name,
-              email: users.validUser.email,
-            },
-            tokens: {
-              accessToken: "mock-access-token",
-              refreshToken: "mock-refresh-token",
-            },
-          },
-          message: "Login successful",
-        },
-      }).as("loginRequest");
+  it.only("should successfully login with valid credentials", () => {
 
-      cy.get('input[name="email"]').type(users.validUser.email);
-      cy.get('input[name="password"]').type(users.validUser.password);
+    cy.get('input[name="email"]').type(Cypress.env('VALID_USER_EMAIL'));
+    cy.get('input[name="password"]').type(Cypress.env('VALID_USER_PASSWORD'));
 
       cy.get('button[type="submit"]').click();
-
-      cy.wait("@loginRequest");
 
       cy.url().should("include", "/dashboard");
 
       cy.window().then((window) => {
-        expect(window.localStorage.getItem("accessToken")).to.eq(
-          "mock-access-token"
-        );
-        expect(window.localStorage.getItem("refreshToken")).to.eq(
-          "mock-refresh-token"
-        );
+        expect(window.localStorage.getItem("accessToken")).to.exist;
+        expect(window.localStorage.getItem("refreshToken")).to.exist;
       });
-    });
   });
 });

@@ -13,7 +13,7 @@
     "test:endurance": "k6 run performance/scripts/endurance-test.js"
   },
   "devDependencies": {
-    "cypress": "^13.6.0",
+    "cypress": "^15.2.0",
     "cypress-localstorage-commands": "^2.2.5"
   }
 }

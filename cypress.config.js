@@ -5,10 +5,6 @@ const path = require('path');
 const usersJsonPath = path.resolve(__dirname, 'cypress/fixtures/users.json');
 const usersExamplePath = path.resolve(__dirname, 'cypress/fixtures/users.example.json');
 
-const testUserEmail = process.env.TEST_USER_EMAIL;
-const testUserPassword = process.env.TEST_USER_PASSWORD;
-const testUserName = process.env.TEST_USER_NAME;
-
 module.exports = defineConfig({
   e2e: {
     baseUrl: 'http://localhost:3000',
@@ -26,10 +22,6 @@ module.exports = defineConfig({
           return null;
         }
       });
-
-      if (testUserEmail) config.env.TEST_USER_EMAIL = testUserEmail;
-      if (testUserPassword) config.env.TEST_USER_PASSWORD = testUserPassword;
-      if (testUserName) config.env.TEST_USER_NAME = testUserName;
 
       return config;
     },
