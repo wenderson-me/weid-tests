@@ -1,0 +1,24 @@
+{
+  "name": "weid-playwright",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:auth": "npx playwright test --project=auth",
+    "test:users": "npx playwright test --project=users",
+    "test:tasks": "npx playwright test --project=tasks",
+    "test:notes": "npx playwright test --project=notes",
+    "test:report": "npx playwright show-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^25.5.0",
+    "dotenv": "^17.3.1",
+    "typescript": "^5.9.3"
+  }
+}
