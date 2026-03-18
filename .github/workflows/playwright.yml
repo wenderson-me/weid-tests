@@ -1,10 +1,14 @@
 name: Playwright Tests
 
 on:
+  schedule:
+    - cron: '0 10 * * *' # 10:00 UTC = 10:00 Lisboa (inverno) / 11:00 Lisboa (verão)
+    - cron: '0 9 * * *'  # 09:00 UTC = 10:00 Lisboa (verão)
   push:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
