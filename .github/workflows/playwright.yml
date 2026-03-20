@@ -2,8 +2,8 @@ name: Playwright Tests
 
 on:
   schedule:
-    - cron: '0 10 * * *' # 10:00 UTC = 10:00 Lisboa (inverno) / 11:00 Lisboa (verão)
-    - cron: '0 9 * * *'  # 09:00 UTC = 10:00 Lisboa (verão)
+    - cron: '0 10 * * *'
+    - cron: '0 9 * * *'
   push:
     branches: [main]
   pull_request:
@@ -26,6 +26,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Configure git identity
+        run: |
+          git config user.name "wenderson"
+          git config user.email "wendrson22@gmail.com"
 
       - uses: actions/setup-node@v4
         with:
