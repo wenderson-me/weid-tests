@@ -11,7 +11,6 @@ export class DashboardPage {
   readonly recentTasksHeading: Locator;
   readonly viewAllLink: Locator;
 
-  // Sidebar
   readonly sidebarDashboard: Locator;
   readonly sidebarNotas: Locator;
   readonly sidebarKanban: Locator;
@@ -31,7 +30,6 @@ export class DashboardPage {
     this.recentTasksHeading = page.getByRole('heading', { name: 'Tarefas Recentes' });
     this.viewAllLink = page.getByRole('link', { name: 'Ver todas' });
 
-    // Sidebar
     this.sidebarDashboard = page.getByRole('link', { name: 'Dashboard' });
     this.sidebarNotas = page.getByRole('link', { name: 'Notas' });
     this.sidebarKanban = page.getByRole('link', { name: 'Kanban' });
