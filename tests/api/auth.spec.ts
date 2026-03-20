@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { ENV } from '../src/config/env';
+import { ENV } from '../../src/config/env';
 
 test.describe('Auth API', () => {
   test.describe('POST /auth/login', () => {

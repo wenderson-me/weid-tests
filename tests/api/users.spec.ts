@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { login, getAuthHeaders } from '../src/helpers/auth.helper';
+import { login, getAuthHeaders } from '../../src/helpers/auth.helper';
 
 test.describe('Users API', () => {
   let accessToken: string;

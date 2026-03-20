@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
-import { login, getAuthHeaders } from '../src/helpers/auth.helper';
-import { generateNoteData } from '../src/helpers/data.helper';
+import { login, getAuthHeaders } from '../../src/helpers/auth.helper';
+import { generateNoteData } from '../../src/helpers/data.helper';
 
 test.describe('Notes API', () => {
   let accessToken: string;

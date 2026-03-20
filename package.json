@@ -9,6 +9,7 @@
     "test:users": "npx playwright test --project=users",
     "test:tasks": "npx playwright test --project=tasks",
     "test:notes": "npx playwright test --project=notes",
+    "test:e2e": "npx playwright test --project=e2e-chromium",
     "test:report": "npx playwright show-report"
   },
   "keywords": [],
