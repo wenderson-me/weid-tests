@@ -6,8 +6,8 @@ test.describe('Notes API', () => {
   let accessToken: string;
   let createdNoteId: string;
 
-  test.beforeAll(async ({ request }) => {
-    accessToken = await login(request);
+  test.beforeAll(async () => {
+    accessToken = await login();
   });
 
   test.describe('POST /notes', () => {

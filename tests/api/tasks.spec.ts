@@ -6,8 +6,8 @@ test.describe('Tasks API', () => {
   let accessToken: string;
   let createdTaskId: string;
 
-  test.beforeAll(async ({ request }) => {
-    accessToken = await login(request);
+  test.beforeAll(async () => {
+    accessToken = await login();
   });
 
   test.describe('POST /tasks', () => {

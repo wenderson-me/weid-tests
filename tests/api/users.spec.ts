@@ -4,8 +4,8 @@ import { login, getAuthHeaders } from '../../src/helpers/auth.helper';
 test.describe('Users API', () => {
   let accessToken: string;
 
-  test.beforeAll(async ({ request }) => {
-    accessToken = await login(request);
+  test.beforeAll(async () => {
+    accessToken = await login();
   });
 
   test.describe('GET /users/profile', () => {

@@ -3,16 +3,15 @@ import { ENV } from '../../src/config/env';
 
 test.describe('Auth API', () => {
   test.describe('POST /auth/login', () => {
-    test('deve fazer login com credenciais válidas', async ({ request }) => {
-      const response = await request.post('auth/login', {
-        data: {
-          email: ENV.USER_EMAIL,
-          password: ENV.USER_PASSWORD,
-        },
+    test('deve fazer login com credenciais válidas', async () => {
+      const res = await fetch(`${ENV.API_URL}auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: ENV.USER_EMAIL, password: ENV.USER_PASSWORD }),
       });
 
-      expect(response.status()).toBe(200);
-      const body = await response.json();
+      expect(res.status).toBe(200);
+      const body = await res.json();
       expect(body.status).toBe('success');
       expect(body.message).toBe('Login realizado com sucesso');
       expect(body.data.user).toHaveProperty('id');
@@ -21,41 +20,41 @@ test.describe('Auth API', () => {
       expect(body.data.user).toHaveProperty('role');
       expect(body.data.user).toHaveProperty('avatar');
 
-      const setCookies = response.headersArray().filter(h => h.name.toLowerCase() === 'set-cookie');
-      const hasAccessToken = setCookies.some(c => c.value.startsWith('accessToken='));
-      const hasRefreshToken = setCookies.some(c => c.value.startsWith('refreshToken='));
+      const setCookies = res.headers.getSetCookie();
+      const hasAccessToken = setCookies.some(c => c.startsWith('accessToken='));
+      const hasRefreshToken = setCookies.some(c => c.startsWith('refreshToken='));
       expect(hasAccessToken).toBe(true);
       expect(hasRefreshToken).toBe(true);
     });
 
-    test('deve rejeitar login com senha incorreta', async ({ request }) => {
-      const response = await request.post('auth/login', {
-        data: {
-          email: ENV.USER_EMAIL,
-          password: 'SenhaErrada@123',
-        },
+    test('deve rejeitar login com senha incorreta', async () => {
+      const res = await fetch(`${ENV.API_URL}auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: ENV.USER_EMAIL, password: 'SenhaErrada@123' }),
       });
 
-      expect([401, 429]).toContain(response.status());
+      expect([401, 429]).toContain(res.status);
     });
 
-    test('deve rejeitar login com email inexistente', async ({ request }) => {
-      const response = await request.post('auth/login', {
-        data: {
-          email: 'inexistente@nowhere.com',
-          password: 'Qualquer@123',
-        },
+    test('deve rejeitar login com email inexistente', async () => {
+      const res = await fetch(`${ENV.API_URL}auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: 'inexistente@nowhere.com', password: 'Qualquer@123' }),
       });
 
-      expect([401, 404, 429]).toContain(response.status());
+      expect([401, 404, 429]).toContain(res.status);
     });
 
-    test('deve rejeitar login sem campos obrigatórios', async ({ request }) => {
-      const response = await request.post('auth/login', {
-        data: {},
+    test('deve rejeitar login sem campos obrigatórios', async () => {
+      const res = await fetch(`${ENV.API_URL}auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({}),
       });
 
-      expect([400, 429]).toContain(response.status());
+      expect([400, 429]).toContain(res.status);
     });
   });
 });

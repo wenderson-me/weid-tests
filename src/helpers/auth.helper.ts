@@ -1,30 +1,28 @@
-import { APIRequestContext } from '@playwright/test';
 import { ENV } from '../config/env';
 
 let cachedToken: string | null = null;
 
-export async function login(request: APIRequestContext): Promise<string> {
+export async function login(): Promise<string> {
   if (cachedToken) return cachedToken;
 
-  const response = await request.post('auth/login', {
-    data: {
-      email: ENV.USER_EMAIL,
-      password: ENV.USER_PASSWORD,
-    },
+  const res = await fetch(`${ENV.API_URL}auth/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: ENV.USER_EMAIL, password: ENV.USER_PASSWORD }),
   });
 
-  if (!response.ok()) {
-    throw new Error(`Login falhou: ${response.status()} - ${await response.text()}`);
+  if (!res.ok) {
+    throw new Error(`Login falhou: ${res.status} - ${await res.text()}`);
   }
 
-  const setCookies = response.headersArray().filter(h => h.name.toLowerCase() === 'set-cookie');
-  const accessTokenCookie = setCookies.find(c => c.value.startsWith('accessToken='));
+  const setCookies = res.headers.getSetCookie();
+  const accessTokenCookie = setCookies.find(c => c.startsWith('accessToken='));
 
   if (!accessTokenCookie) {
     throw new Error('Cookie accessToken não encontrado na resposta de login');
   }
 
-  cachedToken = accessTokenCookie.value.split(';')[0].split('=').slice(1).join('=');
+  cachedToken = accessTokenCookie.split(';')[0].split('=').slice(1).join('=');
   return cachedToken;
 }
 
